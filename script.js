@@ -176,8 +176,13 @@ const sections = ['about', 'work', 'process', 'contact'].map(id => document.getE
 const links    = document.querySelectorAll('.sn-link');
 window.addEventListener('scroll', () => {
   const sy = scrollY + 120;
+  const atBottom = (window.innerHeight + scrollY) >= document.body.scrollHeight - 8;
   let current = '';
-  sections.forEach(s => { if (s && s.offsetTop <= sy) current = s.id; });
+  if (atBottom) {
+    current = 'contact';
+  } else {
+    sections.forEach(s => { if (s && s.offsetTop <= sy) current = s.id; });
+  }
   links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current));
 });
 
